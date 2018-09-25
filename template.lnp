@@ -1,0 +1,8 @@
+"main.obj",
+"delay.obj",
+"Usart.obj",
+"massage.obj",
+"time.obj",
+"key.obj" 
+TO "template" 
+RAMSIZE(256) 

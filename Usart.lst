@@ -1,0 +1,87 @@
+C51 COMPILER V9.54   USART                                                                 06/25/2018 10:28:23 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE USART
+OBJECT MODULE PLACED IN Usart.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE HEADWARE\Usart\Usart.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\HEADWARE;.\HEAD
+                    -WARE\DELAY;.\HEADWARE\Usart;.\HEADWARE\time;.\HEADWARE\massage;.\HEADWARE\key) DEBUG OBJECTEXTEND PRINT(.\Usart.lst) TAB
+                    -S(2) OBJECT(Usart.obj)
+
+line level    source
+
+   1          #include "Usart.h"
+   2          
+   3          u8 USART2_RX_BUF[20];
+   4          u8 JS_FLAG = 0;
+   5          u8 he = 0;
+   6          /*******************************************************************************
+   7          * 函数名         :UsartInit()
+   8          * 函数功能       :设置串口
+   9          * 输入           : 无
+  10          * 输出           : 无
+  11          *******************************************************************************/
+  12          void UsartInit()
+  13          {
+  14   1        SCON=0X50;      //设置为工作方式1
+  15   1        TMOD=0X20;      //设置计数器工作方式2
+  16   1        PCON=0X80;      //波特率加倍
+  17   1        TH1=0XF3;       //计数器初始值设置，注意波特率是4800的
+  18   1        TL1=0XF3;
+  19   1        ES=1;           //打开接收中断
+  20   1        EA=1;           //打开总中断
+  21   1        TR1=1;          //打开计数器
+  22   1      }
+  23          
+  24          
+  25          /*******************************************************************************
+  26          * 函数名         : Usart() interrupt 4
+  27          * 函数功能      : 串口通信中断函数
+  28          * 输入           : 无
+  29          * 输出           : 无
+  30          *******************************************************************************/
+  31          void Usart() interrupt 4
+  32          {
+  33   1        u8 Res;
+  34   1        u8 i;
+  35   1        
+  36   1        Res = SBUF;
+  37   1        if(Res == 0x7A && JS_FLAG == 0)
+  38   1          JS_FLAG = 1;
+  39   1        if(JS_FLAG > 0)
+  40   1        {
+  41   2          JS_FLAG++;
+  42   2          USART2_RX_BUF[JS_FLAG-2] = Res;
+  43   2      
+  44   2        }
+  45   1        if(USART2_RX_BUF[JS_FLAG-2] == 0x55 && 
+  46   1           USART2_RX_BUF[1] == JS_FLAG-4)
+  47   1        {
+  48   2          for(i=1 ; i< JS_FLAG-3; i++)
+  49   2           he = (he + USART2_RX_BUF[i])%256;
+  50   2          if(he == USART2_RX_BUF[JS_FLAG-3])
+  51   2          for(i=0 ; i< JS_FLAG-1; i++)
+  52   2          {
+  53   3            USART2_RX[i] = USART2_RX_BUF[i];
+C51 COMPILER V9.54   USART                                                                 06/25/2018 10:28:23 PAGE 2   
+
+  54   3            USART2_RX_BUF[i] = 0;
+  55   3          }
+  56   2          JS_FLAG = 0;
+  57   2          he = 0;
+  58   2        }
+  59   1        RI = 0;//清除接收中断标志位
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    172    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     22    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

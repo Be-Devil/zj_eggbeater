@@ -1,0 +1,531 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/25/2018  12:00:40  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE main.obj, delay.obj, Usart.obj, massage.obj, time.obj, key.obj TO template RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  main.obj (MAIN)
+  delay.obj (DELAY)
+  Usart.obj (USART)
+  massage.obj (MASSAGE)
+  time.obj (TIME)
+  key.obj (KEY)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?MEMSET)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  template (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0029H     UNIT         ?DT?MAIN
+            DATA    0031H     001DH     UNIT         ?DT?MASSAGE
+            DATA    004EH     0016H     UNIT         ?DT?USART
+            DATA    0064H     0014H     UNIT         ?DT?TIME
+            DATA    0078H     0004H     UNIT         _DATA_GROUP_
+            IDATA   007CH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0010H     UNIT         ?PR?TIMER0INIT?TIME
+                    001EH     0005H                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     00A1H     UNIT         ?PR?KEY?KEY
+            CODE    00C7H     0096H     UNIT         ?PR?USART?USART
+            CODE    015DH     008CH     UNIT         ?C_C51STARTUP
+            CODE    01E9H     007CH     UNIT         ?PR?TIMER0?TIME
+            CODE    0265H     0057H     UNIT         ?C?LIB_CODE
+            CODE    02BCH     003DH     UNIT         ?PR?_GETMCUID?MASSAGE
+            CODE    02F9H     003CH     UNIT         ?PR?_SEND_MASSAGE?MASSAGE
+            CODE    0335H     0038H     UNIT         ?C_INITSEG
+            CODE    036DH     0031H     UNIT         ?PR?MASSAGE_INIT?MASSAGE
+            CODE    039EH     0027H     UNIT         ?PR?MAIN?MAIN
+            CODE    03C5H     0018H     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    03DDH     0016H     UNIT         ?PR?USARTINIT?USART
+            CODE    03F3H     000FH     UNIT         ?PR?_KEY_CONTROL?MASSAGE
+            CODE    0402H     0009H     UNIT         ?PR?DELAY?DELAY
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 2
+
+
+
+
+OVERLAY MAP OF MODULE:   template (MAIN)
+
+
+SEGMENT                             DATA_GROUP 
+  +--> CALLED SEGMENT             START    LENGTH
+-------------------------------------------------
+?PR?TIMER0?TIME                   0078H    0002H
+  +--> ?PR?_SEND_MASSAGE?MASSAGE
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP                     -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                     -----    -----
+  +--> ?PR?USARTINIT?USART
+  +--> ?PR?MASSAGE_INIT?MASSAGE
+  +--> ?PR?TIMER0INIT?TIME
+  +--> ?PR?KEY?KEY
+
+?PR?MASSAGE_INIT?MASSAGE          -----    -----
+  +--> ?PR?_GETMCUID?MASSAGE
+  +--> ?PR?_SEND_MASSAGE?MASSAGE
+
+?PR?KEY?KEY                       -----    -----
+  +--> ?PR?_DELAY_MS?DELAY
+  +--> ?PR?_KEY_CONTROL?MASSAGE
+
+?PR?_DELAY_MS?DELAY               007AH    0002H
+  +--> ?PR?DELAY?DELAY
+
+?PR?_KEY_CONTROL?MASSAGE          -----    -----
+  +--> ?PR?_SEND_MASSAGE?MASSAGE
+
+
+
+SYMBOL TABLE OF MODULE:  template (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:039EH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:0080H.5       PUBLIC        Gashapon
+  D:0008H         PUBLIC        USART2_RX
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 3
+
+
+  D:001CH         PUBLIC        massage
+  B:00A0H.1       PUBLIC        led1
+  D:00C8H         PUBLIC        T2CON
+  D:0030H         PUBLIC        i
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:039EH         LINE#         16
+  C:039EH         LINE#         17
+  C:039EH         LINE#         18
+  C:03A1H         LINE#         19
+  C:03A4H         LINE#         20
+  C:03A7H         LINE#         21
+  C:03A7H         LINE#         22
+  C:03A7H         LINE#         23
+  C:03AAH         LINE#         24
+  C:03B0H         LINE#         25
+  C:03B0H         LINE#         26
+  C:03B0H         LINE#         27
+  C:03BFH         LINE#         28
+  C:03C1H         LINE#         29
+  C:03C3H         LINE#         30
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:0402H         PUBLIC        delay
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:03C5H         PUBLIC        _delay_ms
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY_MS
+  D:007AH         SYMBOL        nms
+  C:03C5H         LINE#         2
+  C:03C9H         LINE#         3
+  C:03C9H         LINE#         5
+  C:03CFH         LINE#         6
+  C:03CFH         LINE#         7
+  C:03D2H         LINE#         8
+  C:03DAH         LINE#         9
+  C:03DCH         LINE#         11
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          DELAY
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:0402H         LINE#         17
+  C:0402H         LINE#         18
+  C:0402H         LINE#         19
+  C:0404H         LINE#         20
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 4
+
+
+  C:040AH         LINE#         21
+  -------         ENDPROC       DELAY
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        USART
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:004EH         PUBLIC        USART2_RX_BUF
+  D:00A8H         PUBLIC        IE
+  C:00C7H         PUBLIC        Usart
+  B:00A8H.4       PUBLIC        ES
+  D:0062H         PUBLIC        JS_FLAG
+  D:00B8H         PUBLIC        IP
+  B:0098H.0       PUBLIC        RI
+  C:03DDH         PUBLIC        UsartInit
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:0063H         PUBLIC        he
+  D:008DH         PUBLIC        TH1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          USARTINIT
+  C:03DDH         LINE#         12
+  C:03DDH         LINE#         13
+  C:03DDH         LINE#         14
+  C:03E0H         LINE#         15
+  C:03E3H         LINE#         16
+  C:03E6H         LINE#         17
+  C:03E9H         LINE#         18
+  C:03ECH         LINE#         19
+  C:03EEH         LINE#         20
+  C:03F0H         LINE#         21
+  C:03F2H         LINE#         22
+  -------         ENDPROC       USARTINIT
+  -------         PROC          USART
+  -------         DO            
+  D:0007H         SYMBOL        Res
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:00C7H         LINE#         31
+  C:00D6H         LINE#         36
+  C:00D8H         LINE#         37
+  C:00DFH         LINE#         38
+  C:00E2H         LINE#         39
+  C:00E9H         LINE#         40
+  C:00E9H         LINE#         41
+  C:00EBH         LINE#         42
+  C:00F2H         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 5
+
+
+  C:00F2H         LINE#         45
+  C:0104H         LINE#         47
+  C:0104H         LINE#         48
+  C:0110H         LINE#         49
+  C:011FH         LINE#         50
+  C:0129H         LINE#         51
+  C:0133H         LINE#         52
+  C:0133H         LINE#         53
+  C:013FH         LINE#         54
+  C:0145H         LINE#         55
+  C:0148H         LINE#         56
+  C:014BH         LINE#         57
+  C:014EH         LINE#         58
+  C:014EH         LINE#         59
+  C:0150H         LINE#         60
+  -------         ENDPROC       USART
+  -------         ENDMOD        USART
+
+  -------         MODULE        MASSAGE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  C:02BCH         PUBLIC        _GetMCUID
+  D:00B8H         PUBLIC        IP
+  B:0098H.1       PUBLIC        TI
+  C:03F3H         PUBLIC        _key_control
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:0031H         PUBLIC        ID_massage
+  D:003EH         PUBLIC        UID
+  D:00C8H         PUBLIC        T2CON
+  D:0046H         PUBLIC        key_instructions
+  C:02F9H         PUBLIC        _send_massage
+  D:00D0H         PUBLIC        PSW
+  C:036DH         PUBLIC        massage_init
+  -------         PROC          _SEND_MASSAGE
+  D:0001H         SYMBOL        s
+  D:0005H         SYMBOL        z
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        sum
+  -------         ENDDO         
+  C:02F9H         LINE#         10
+  C:02F9H         LINE#         11
+  C:02F9H         LINE#         14
+  C:0301H         LINE#         15
+  C:0301H         LINE#         16
+  C:0306H         LINE#         17
+  C:030BH         LINE#         18
+  C:0311H         LINE#         19
+  C:0315H         LINE#         20
+  C:031BH         LINE#         21
+  C:0320H         LINE#         22
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 6
+
+
+  C:0325H         LINE#         23
+  C:0328H         LINE#         24
+  C:032AH         LINE#         25
+  C:0334H         LINE#         27
+  -------         ENDPROC       _SEND_MASSAGE
+  -------         PROC          _KEY_CONTROL
+  D:0007H         SYMBOL        key_type
+  D:0005H         SYMBOL        key_state
+  C:03F3H         LINE#         29
+  C:03F3H         LINE#         30
+  C:03F3H         LINE#         31
+  C:03F5H         LINE#         32
+  C:03F7H         LINE#         33
+  -------         ENDPROC       _KEY_CONTROL
+  -------         PROC          MASSAGE_INIT
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:036DH         LINE#         36
+  C:036DH         LINE#         37
+  C:036DH         LINE#         39
+  C:0372H         LINE#         40
+  C:0374H         LINE#         41
+  C:0374H         LINE#         42
+  C:0380H         LINE#         43
+  C:038CH         LINE#         44
+  C:0390H         LINE#         45
+  C:039BH         LINE#         46
+  C:039DH         LINE#         47
+  -------         ENDPROC       MASSAGE_INIT
+  -------         PROC          _GETMCUID
+  D:0007H         SYMBOL        nType
+  -------         DO            
+  D:0007H         SYMBOL        iptr
+  D:0004H         SYMBOL        cptr
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:02BCH         LINE#         49
+  C:02BCH         LINE#         50
+  C:02BCH         LINE#         55
+  C:02BFH         LINE#         56
+  C:02C1H         LINE#         57
+  C:02C2H         LINE#         58
+  C:02CFH         LINE#         59
+  C:02D5H         LINE#         60
+  C:02D5H         LINE#         61
+  C:02D5H         LINE#         62
+  C:02D9H         LINE#         63
+  C:02DBH         LINE#         64
+  C:02F0H         LINE#         65
+  C:02F4H         LINE#         66
+  C:02F4H         LINE#         67
+  C:02F7H         LINE#         69
+  C:02F8H         LINE#         70
+  -------         ENDPROC       _GETMCUID
+  -------         ENDMOD        MASSAGE
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 7
+
+
+  -------         MODULE        TIME
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0080H.7       PUBLIC        coin
+  C:01E9H         PUBLIC        Timer0
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:0080H.5       PUBLIC        Gashapon
+  D:0066H         PUBLIC        out_Gashapon_massage
+  B:00A8H.1       PUBLIC        ET0
+  C:000EH         PUBLIC        Timer0Init
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:006CH         PUBLIC        heart_massage
+  B:00A0H.0       PUBLIC        led0
+  D:00C8H         PUBLIC        T2CON
+  B:0080H.6       PUBLIC        out_Gashapon
+  D:0072H         PUBLIC        coin_massage
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          TIMER0
+  -------         DO            
+  D:0064H         SYMBOL        i
+  D:0078H         SYMBOL        x
+  -------         ENDDO         
+  C:01E9H         LINE#         13
+  C:0206H         LINE#         17
+  C:0209H         LINE#         18
+  C:020CH         LINE#         19
+  C:0214H         LINE#         20
+  C:021CH         LINE#         21
+  C:021CH         LINE#         22
+  C:0222H         LINE#         23
+  C:0224H         LINE#         25
+  C:0224H         LINE#         26
+  C:022AH         LINE#         27
+  C:022AH         LINE#         28
+  C:022CH         LINE#         29
+  C:0237H         LINE#         30
+  C:0237H         LINE#         31
+  C:023DH         LINE#         32
+  C:023DH         LINE#         33
+  C:023FH         LINE#         34
+  C:024AH         LINE#         35
+  C:024AH         LINE#         36
+  -------         ENDPROC       TIMER0
+  -------         PROC          TIMER0INIT
+  C:000EH         LINE#         44
+  C:000EH         LINE#         45
+  C:000EH         LINE#         46
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 8
+
+
+  C:0011H         LINE#         48
+  C:0014H         LINE#         49
+  C:0017H         LINE#         50
+  C:0019H         LINE#         51
+  C:001BH         LINE#         52
+  C:001DH         LINE#         53
+  -------         ENDPROC       TIMER0INIT
+  -------         ENDMOD        TIME
+
+  -------         MODULE        KEY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  B:0080H.5       PUBLIC        Gashapon
+  B:0080H.3       PUBLIC        green_key
+  B:0080H.2       PUBLIC        yellow_key
+  B:0080H.0       PUBLIC        white_key
+  B:0080H.4       PUBLIC        blue_key
+  B:0080H.1       PUBLIC        red_key
+  D:00C8H         PUBLIC        T2CON
+  C:0026H         PUBLIC        KEY
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          KEY
+  C:0026H         LINE#         13
+  C:0026H         LINE#         14
+  C:0026H         LINE#         15
+  C:0029H         LINE#         16
+  C:0029H         LINE#         17
+  C:0030H         LINE#         18
+  C:0033H         LINE#         19
+  C:0033H         LINE#         20
+  C:003AH         LINE#         21
+  C:003CH         LINE#         22
+  C:003FH         LINE#         23
+  C:0046H         LINE#         24
+  C:0046H         LINE#         25
+  C:0046H         LINE#         27
+  C:0049H         LINE#         28
+  C:0049H         LINE#         29
+  C:0050H         LINE#         30
+  C:0053H         LINE#         31
+  C:0053H         LINE#         32
+  C:005AH         LINE#         33
+  C:005CH         LINE#         34
+  C:005FH         LINE#         35
+  C:0066H         LINE#         36
+  C:0066H         LINE#         37
+  C:0066H         LINE#         39
+  C:0069H         LINE#         40
+  C:0069H         LINE#         41
+  C:0070H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/25/2018  12:00:40  PAGE 9
+
+
+  C:0073H         LINE#         43
+  C:0073H         LINE#         44
+  C:007AH         LINE#         45
+  C:007CH         LINE#         46
+  C:007FH         LINE#         47
+  C:0086H         LINE#         48
+  C:0086H         LINE#         49
+  C:0086H         LINE#         51
+  C:0089H         LINE#         52
+  C:0089H         LINE#         53
+  C:0090H         LINE#         54
+  C:0093H         LINE#         55
+  C:0093H         LINE#         56
+  C:009AH         LINE#         57
+  C:009CH         LINE#         58
+  C:009FH         LINE#         59
+  C:00A6H         LINE#         60
+  C:00A6H         LINE#         61
+  C:00A6H         LINE#         63
+  C:00A9H         LINE#         64
+  C:00A9H         LINE#         65
+  C:00B0H         LINE#         66
+  C:00B3H         LINE#         67
+  C:00B3H         LINE#         68
+  C:00BAH         LINE#         69
+  C:00BCH         LINE#         70
+  C:00BFH         LINE#         71
+  C:00C6H         LINE#         72
+  C:00C6H         LINE#         73
+  C:00C6H         LINE#         75
+  -------         ENDPROC       KEY
+  -------         ENDMOD        KEY
+
+  -------         MODULE        ?C?CLDPTR
+  C:0265H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:027EH         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?MEMSET
+  C:0290H         PUBLIC        ?C?MEMSET
+  -------         ENDMOD        ?C?MEMSET
+
+Program Size: data=125.0 xdata=0 code=1022
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

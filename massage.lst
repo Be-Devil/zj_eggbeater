@@ -1,0 +1,98 @@
+C51 COMPILER V9.54   MASSAGE                                                               06/25/2018 11:25:27 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MASSAGE
+OBJECT MODULE PLACED IN massage.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE HEADWARE\massage\massage.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\HEADWARE;.\
+                    -HEADWARE\DELAY;.\HEADWARE\Usart;.\HEADWARE\time;.\HEADWARE\massage;.\HEADWARE\key) DEBUG OBJECTEXTEND PRINT(.\massage.ls
+                    -t) TABS(2) OBJECT(massage.obj)
+
+line level    source
+
+   1          #include "massage.h"
+   2          unsigned char UID[8];
+   3          u8 ID_massage[13] = {0x7a,0x0a,0x01,0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+   4          u8 key_instructions[8] = {0x7a,0x05,0x03,0x03,0x01,0x01,0x07,0x55};
+   5          
+   6          /*******************************************************************************
+   7          * 函 数 名       : send_massage
+   8          * 函数功能       : 发送指令
+   9          *******************************************************************************/
+  10          void send_massage(u8 *s, u8 z)
+  11          {
+*** WARNING C235 IN LINE 11 OF HEADWARE\massage\massage.c: parameter 1: different types
+  12   1        u8 i,sum;
+  13   1        
+  14   1        for(i=0,sum=0; i<z ; i++,s++)
+  15   1        {
+  16   2            if(i == z-1)
+  17   2              *s = 0x55;
+  18   2            if(i == z-2)
+  19   2              *s = sum;
+  20   2            if(i > 0)
+  21   2              sum = sum + *s;
+  22   2          SBUF=*s;         //将接收到的数据放入到发送寄存器
+  23   2          while(!TI);      //等待发送数据完成
+  24   2          TI=0;            //清除发送完成标志位
+  25   2        }
+  26   1        
+  27   1      }
+  28          
+  29          void key_control(u8 key_type,u8 key_state)
+  30          {
+  31   1        key_instructions[4] = key_type;
+  32   1        key_instructions[5] = key_state;
+  33   1        send_massage(key_instructions,8);
+  34   1      }
+  35          
+  36          u8 massage_init()
+  37          {
+  38   1        u8 i;
+  39   1        GetMCUID(0);
+  40   1        for(i = 0; i<7 ; i++)
+  41   1        {
+  42   2        ID_massage[i+4] = UID[i];
+  43   2        ID_massage[11] = (ID_massage[11] +  UID[i])%256;
+  44   2        } 
+  45   1        send_massage(ID_massage,13);
+  46   1        return 0;
+  47   1      }
+  48          
+  49          char GetMCUID(unsigned char nType)
+  50          {
+  51   1          unsigned char idata *iptr;
+  52   1          unsigned char code *cptr;
+C51 COMPILER V9.54   MASSAGE                                                               06/25/2018 11:25:27 PAGE 2   
+
+  53   1          unsigned char i;
+  54   1          
+  55   1          if (nType == RAMID) {
+  56   2              iptr = ID_ADDR_RAM;        
+  57   2              for (i=0; i<7; i++) {      
+  58   3                  UID[i] =*iptr++;   
+  59   3              }
+  60   2          }
+  61   1          else {
+  62   2              cptr = ID_ADDR_ROM;         
+  63   2              for (i=0; i<7; i++) {      
+  64   3                  UID[i] =*cptr++;  
+  65   3              }
+  66   2          }
+  67   1          UID[7]=0;
+  68   1          
+  69   1          return 0;
+  70   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    185    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     29    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

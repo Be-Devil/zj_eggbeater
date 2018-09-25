@@ -1,0 +1,61 @@
+C51 COMPILER V9.54   MAIN                                                                  06/25/2018 12:00:40 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\HEADWARE;.\HEADWARE\DELAY;.\HEA
+                    -DWARE\Usart;.\HEADWARE\time;.\HEADWARE\massage;.\HEADWARE\key) DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "delay.h"
+   2          #include "Usart.h"
+   3          #include "time.h"
+   4          #include "massage.h"
+   5          #include "KEY.h"
+   6          
+   7          u8 USART2_RX[20];
+   8          u8 massage[20] ;
+   9          u8 i;
+  10          /*******************************************************************************
+  11          * 函 数 名       : main
+  12          * 函数功能     : 主函数
+  13          * 输    入       : 无
+  14          * 输    出       : 无
+  15          *******************************************************************************/
+  16          void main()
+  17          { 
+  18   1        UsartInit();  //  串口初始化
+  19   1        massage_init();
+  20   1        Timer0Init();  //定时器0初始化
+  21   1        while(1)
+  22   1        {
+  23   2          KEY();
+  24   2          switch (USART2_RX[2])
+  25   2        {
+  26   3          case 0X05:
+  27   3              memset(USART2_RX,0,30);   //清空数组    
+  28   3              Gashapon = ~Gashapon;
+  29   3              led1 = ~led1;
+  30   3            break;
+  31   3          
+  32   3          case 0X06:
+  33   3            break;
+  34   3        }   
+  35   2        
+  36   2        }   
+  37   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     39    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     41    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
